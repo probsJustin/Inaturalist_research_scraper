@@ -1,17 +1,18 @@
 import re
 from concurrent.futures import ThreadPoolExecutor
-import time
 import requests
 import shutil
 import math
 import time
 import hashlib
+from os.path import exists
+
 PAGE_LENGTH = 30
 PAGE_PARAM = f'page'
-NUMBER_OF_THEADS = 5
+NUMBER_OF_THEADS = 10
 
 def download_image(url):
-    print(url)
+    start = (time.time())
     request_payload = requests.get(url).text
     matches = re.findall('medium_url":"([^"]*)', request_payload, re.DOTALL)
     counter = 1
@@ -21,21 +22,24 @@ def download_image(url):
         newMatches[z] = ""
 
     for url in newMatches.keys():
-        print(f'{counter}/{len((newMatches.keys()))}')
-        print(url + '\n')
         counter = counter + 1
-        response = requests.get(url, stream=True)
         fileName = hashlib.md5(url.encode('utf-8'))
-        with open(f'./content/inat_{fileName.hexdigest()}.jpg', 'wb+') as out_file:
-            shutil.copyfileobj(response.raw, out_file)
+        filePath = f'./content/inat_{fileName.hexdigest()}.jpg'
+        if(exists(filePath) == False):
+            response = requests.get(url, stream=True)
+            with open(filePath, 'wb+') as out_file:
+                shutil.copyfileobj(response.raw, out_file)
+    end = (time.time())
+    print(f'Seconds: {end - start}')
 
 
 def initial_total_results_request(url):
     return requests.get(url).json()
 
+def doNothing():
+    thing = 1
 
 def get_pages_request(url):
-    print("Entering Get Total")
     result = initial_total_results_request(url)
     total_results = result["total_results"]
     page_max_length = math.ceil(total_results / PAGE_LENGTH)
@@ -48,13 +52,13 @@ def get_pages_request(url):
     for y in range(page_itr, page_max_length):
         future_tasks.append(executor.submit(download_image(f'{url}&{PAGE_PARAM}={y}')))
 
-    time.sleep(1)
+    time.sleep(2)
     for tasks in future_tasks:
         try:
             tasks.done()
             tasks.result()
         except Exception as error:
-            print(error)
+            doNothing()
 
 
 
@@ -72,5 +76,8 @@ with open(filename, 'r') as f:
 for x in content:
     request_list.append(x.strip())
 
+requestCounter = 0
 for y in request_list:
+    requestCounter = requestCounter + 1
+    print(f'Request Number: {requestCounter}')
     get_pages_request(y)
