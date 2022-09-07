@@ -70,7 +70,7 @@ def log(message):
 
 
 contentDirectory = os.listdir('./content')
-filename = "requests.txt"
+filename = "requests_2.txt"
 request_list = list()
 # Open the file as f.
 # The function readlines() reads the file.
