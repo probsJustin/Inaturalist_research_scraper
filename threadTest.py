@@ -1,3 +1,4 @@
+import os
 import re
 from concurrent.futures import ThreadPoolExecutor
 import requests
@@ -7,9 +8,10 @@ import time
 import hashlib
 from os.path import exists
 
+
 PAGE_LENGTH = 30
 PAGE_PARAM = f'page'
-NUMBER_OF_THEADS = 10
+NUMBER_OF_THEADS = 5
 
 def download_image(url):
     start = (time.time())
@@ -24,8 +26,9 @@ def download_image(url):
     for url in newMatches.keys():
         counter = counter + 1
         fileName = hashlib.md5(url.encode('utf-8'))
+        fileNameHash = f'inat_{fileName.hexdigest()}.jpg'
         filePath = f'./content/inat_{fileName.hexdigest()}.jpg'
-        if(exists(filePath) == False):
+        if fileNameHash not in contentDirectory:
             response = requests.get(url, stream=True)
             with open(filePath, 'wb+') as out_file:
                 shutil.copyfileobj(response.raw, out_file)
@@ -66,6 +69,7 @@ def log(message):
     print(f'{time.ctime()} :: {message}')
 
 
+contentDirectory = os.listdir('./content')
 filename = "requests.txt"
 request_list = list()
 # Open the file as f.
