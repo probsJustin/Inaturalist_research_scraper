@@ -7,6 +7,7 @@ Project that scrapes Inaturalist website for specific information and then proce
 
 ### Index:
  - testing_scratch_book: scripts that I don't need/tested things in. 
+ - iNatSCraper_v0.1_dirty: this was our first stab at it with limited requirements, will only be used for ref material. 
 
 ### How to use this tool:
  - Pray for now I guess. 
