@@ -23,3 +23,19 @@ def get_common_request_information(response, page_size):
     except Exception as error:
         print(error)
         return False
+
+
+def get_all_urls_list(response):
+    return response
+
+
+def get_all_image_urls_list(response):
+    return response
+
+
+def get_results_len(response):
+    try:
+        return len(response["results"])
+    except Exception as error:
+        print(error)
+        return False
