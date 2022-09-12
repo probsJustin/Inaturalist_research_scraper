@@ -19,13 +19,11 @@ from pyinaturalist import (
 import logging as internal_logger
 import modules.response_handler as response_handler
 from rich import print
+import time
 
 ### Setup
+internal_logger.basicConfig(filename=f'./logs/inat_{time.strftime("%Y%m%d-%H%M%S")}.log', level=internal_logger.DEBUG)
 enable_logging()
-internal_logger.basicConfig(filename=f'inat_{time.ctime()}.log', level=internal_logger.DEBUG)
-
-
-
 
 def get_all_pages_as_dict(number_of_pages):
     dict_to_return = dict()
@@ -35,9 +33,7 @@ def get_all_pages_as_dict(number_of_pages):
         internal_logger.debug(f'Printing Page Number: {x}')
     return dict_to_return
 
-
-
-
+internal_logger.debug(f'Testing.....')
 response = get_identifications(taxon_id=[52818], per_page=200, page=10)
 number_of_pages_needed = response_handler.get_total_pages(response, 200)
 print(number_of_pages_needed)
