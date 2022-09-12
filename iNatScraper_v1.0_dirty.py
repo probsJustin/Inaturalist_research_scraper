@@ -17,7 +17,7 @@ from pyinaturalist import (
 )
 
 import logging as internal_logger
-import modules.inat_page_printer as pageHandler
+import modules.response_handler as response_handler
 from rich import print
 
 ### Setup
@@ -39,6 +39,5 @@ def get_all_pages_as_dict(number_of_pages):
 
 
 response = get_identifications(taxon_id=[52818], per_page=200, page=10)
-pageHandlerInfo = pageHandler.get_total_pages(response, 200)
-#len(get_all_pages_as_dict(pageHandlerInfo.number_of_pages))
-pprint(response)
+number_of_pages_needed = response_handler.get_total_pages(response, 200)
+print(number_of_pages_needed)
