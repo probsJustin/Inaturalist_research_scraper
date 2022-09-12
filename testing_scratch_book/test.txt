@@ -1,0 +1,18 @@
+C:\stuffthatisnotimportant\inat\venv\Scripts\python.exe C:/stuffthatisnotimportant/inat/app.py
+Traceback (most recent call last):
+  File "C:/stuffthatisnotimportant/inat/app.py", line 136, in <module>
+    asyncio.run(get_all_requests(request_list))  # Python 3.7+
+  File "C:\Users\probsJustin\AppData\Local\Programs\Python\Python37\lib\asyncio\runners.py", line 43, in run
+    return loop.run_until_complete(main)
+  File "C:\Users\probsJustin\AppData\Local\Programs\Python\Python37\lib\asyncio\base_events.py", line 587, in run_until_complete
+    return future.result()
+  File "C:/stuffthatisnotimportant/inat/app.py", line 118, in get_all_requests
+    return await gather_with_concurrency(*more_tasks)
+  File "C:/stuffthatisnotimportant/inat/app.py", line 19, in gather_with_concurrency
+    semaphore = asyncio.Semaphore(n)
+  File "C:\Users\probsJustin\AppData\Local\Programs\Python\Python37\lib\asyncio\locks.py", line 434, in __init__
+    if value < 0:
+TypeError: '<' not supported between instances of 'coroutine' and 'int'
+sys:1: RuntimeWarning: coroutine 'get_total_create_requests' was never awaited
+
+Process finished with exit code 1
