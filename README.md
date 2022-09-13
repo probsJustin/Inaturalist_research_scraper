@@ -1,5 +1,5 @@
 # INaturalist research scrapper project
-Project status: work in progress
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
 Project that scrapes Inaturalist website for specific information and then processes that information into images that can be identified by a larger audience/group in the context of a research project that identifies if climate change has an effect on bloom/reproductive cycles of plants. etc.
 
