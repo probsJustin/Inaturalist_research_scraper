@@ -4,6 +4,7 @@ import time
 import altair as alt
 import ipyplot
 import pandas as pd
+import json
 from IPython.display import Image
 from pyinaturalist import (
     Taxon,
@@ -39,7 +40,7 @@ number_of_pages_needed = response_handler.get_total_pages(response, 200)
 
 pagedResponse = dict()
 for x in range(1, number_of_pages_needed):
-    print(f'page: {x}')
+    internal_logger.debug(f'page: {x}')
     try:
         pagedResponse[x] = get_identifications(taxon_id=[52818], per_page=200, page=x)
     except Exception as error:
@@ -49,4 +50,7 @@ for x in range(1, number_of_pages_needed):
 for y in pagedResponse:
     print(f'\nPAGE: {y}\n')
     pprint(pagedResponse[y])
+    with open(f'./content/requests/page_identification_{52818}_{y}.json', "w") as outfile:
+        outfile.write(json.dumps(str(pagedResponse[y]), indent=4))
+
 
