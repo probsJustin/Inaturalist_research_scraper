@@ -26,3 +26,17 @@ def get_dict_paged_identifications(param_taxon_id, number_of_needed_pages):
             print(error)
             break
     return pagedResponse
+
+def get_dict_paged_observations(param_taxon_id, number_of_needed_pages):
+    pagedResponse = dict()
+    for x in range(1, number_of_needed_pages):
+        try:
+            pagedResponse[x] = get_observations(taxon_id=[param_taxon_id], per_page=200, page=x)
+        except Exception as error:
+            print(error)
+            break
+    return pagedResponse
+
+def get_image_url(param_inat_response_payload):
+    matches = re.findall('medium_url":"([^"]*)', param_inat_response_payload, re.DOTALL)
+    return matches
