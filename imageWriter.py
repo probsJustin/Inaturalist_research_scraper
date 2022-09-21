@@ -8,6 +8,7 @@ example_imageDestinationLocation = './content/images/original_2.jpg'
 example_lat_long_example = "53.0483695,-9.1397471667"
 example_name = 'common yarrow'
 example_taxon = 52818
+example_date_of_image = f'5/15/2022'
 
 height = 1255
 width = 2500
@@ -39,8 +40,8 @@ def determine_position(size):
     return (0, 100)
 
 
-def built_image_text(location, taxon, name):
-    return f' LOCATION: {location} \n TAXON: {taxon} \n NAME: {name}'
+def built_image_text(location, taxon, name, date_of_image):
+    return f' LOCATION: {location} \n TAXON: {taxon} \n NAME: {name} \n DATE: {date_of_image}'
 
 
 def write_to_image(image_location, image_destination, text_to_write, size):
@@ -57,5 +58,5 @@ def write_to_image(image_location, image_destination, text_to_write, size):
     img.save(image_destination)
 
 
-image_text = built_image_text(determine_location(example_lat_long_example), example_taxon, example_name)
+image_text = built_image_text(determine_location(example_lat_long_example), example_taxon, example_name, example_date_of_image)
 write_to_image(example_imageLocation, example_imageDestinationLocation, image_text, size)
