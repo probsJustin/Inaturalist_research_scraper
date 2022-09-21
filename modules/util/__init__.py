@@ -50,3 +50,23 @@ def get_taxa_by_name(taxa_name):
 def write_content_to_files(responseToWrite, base_name, taxon, page):
     with open(f'./content/requests/{base_name}_{taxon}_{page}.json', "w") as outfile:
         outfile.write(json.dumps(responseToWrite, indent=4, sort_keys=True, default=str))
+
+
+class result_return_for_image:
+    geoLocation = ''
+    observationPhoto = ''
+    def __init__(self, geoLocation, observationPhoto):
+        self.geoLocation = geoLocation
+        self.observationPhoto = observationPhoto
+
+    def print(self):
+        print(f'GeoLocation: {self.geoLocation}')
+        print(f'ObservationPhoto: {self.observationPhoto}')
+
+def process_inat_result_data(data):
+    return_list = list()
+    for x in data['results']:
+        geoLocationLatLong = x['observation']['location']
+        observationPhoto = x['observation']['observation_photos'][0]['photo']['url'].replace('square', 'original')
+        return_list.append(result_return_for_image(geoLocationLatLong, observationPhoto))
+    return return_list

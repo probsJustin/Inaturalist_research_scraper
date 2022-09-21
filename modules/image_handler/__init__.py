@@ -1,8 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 from geopy.geocoders import Nominatim
 
-
-
 example_imageLocation = './content/images/original_1.jpg'
 example_imageDestinationLocation = './content/images/original_2.jpg'
 example_lat_long_example = "53.0483695,-9.1397471667"
