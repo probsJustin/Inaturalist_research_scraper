@@ -37,6 +37,16 @@ def get_dict_paged_observations(param_taxon_id, number_of_needed_pages):
             break
     return pagedResponse
 
-def get_image_url(param_inat_response_payload):
-    matches = re.findall('medium_url":"([^"]*)', param_inat_response_payload, re.DOTALL)
+def get_image_url(param_inat_response_payload, match_string):
+    matches = re.findall(match_string, str(param_inat_response_payload), re.DOTALL)
     return matches
+
+def get_formatted_taxa(taxa_name):
+    return get_taxa(q=taxa_name)
+
+def get_taxa_by_name(taxa_name):
+    return get_taxa_by_id(q=taxa_name)
+
+def write_content_to_files(responseToWrite, taxon, page):
+    with open(f'../../content/requests/page_identification_{taxon}_{page}.json', "w") as outfile:
+        outfile.write(json.dumps(str(responseToWrite), indent=4))
