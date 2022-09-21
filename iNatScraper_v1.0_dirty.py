@@ -29,17 +29,24 @@ internal_logger.basicConfig(filename=f'./logs/inat_{time.strftime("%Y%m%d-%H%M%S
 enable_logging()
 
 
-internal_logger.debug(f'Testing.....')
-response = get_identifications(taxon_id=[52818], per_page=200, page=1)
-number_of_pages_needed = response_handler.get_total_pages(response, 200)
+# internal_logger.debug(f'Testing.....')
+# response = get_identifications(taxon_id=[52818], per_page=5, page=1)
+# number_of_pages_needed = response_handler.get_total_pages(response, 5)
+#
+# pagedResponse = dict()
+#
+# pagedResponse = util.get_dict_paged_identifications(52818, number_of_pages_needed, 5)
+#
+# unique = dict()
+# for y in pagedResponse:
+#     #print(f'\nPAGE: {y}\n')
+#     #pprint(pagedResponse[y])
+#     util.write_content_to_files(pagedResponse[y], "page_identification", 52818, y)
 
+response = get_observations(taxon_id=[52818], per_page=5, page=1)
+number_of_pages_needed = response_handler.get_total_pages(response, 5)
 pagedResponse = dict()
+pagedResponse = util.get_dict_paged_observations(52818, number_of_pages_needed, 5)
 
-pagedResponse = util.get_dict_paged_identifications(52818, number_of_pages_needed)
-
-unique = dict()
 for y in pagedResponse:
-    #print(f'\nPAGE: {y}\n')
-    #pprint(pagedResponse[y])
-    util.write_content_to_files(pagedResponse[y], 52818, y)
-
+    util.write_content_to_files(pagedResponse[y], "page_observation", 52818, y)

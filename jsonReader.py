@@ -40,5 +40,12 @@ def keys(newList):
         print(x)
 
 thing = data['results'][0]['observation']['identifications'][0]['previous_observation_taxon']['default_photo']['url']
-print(thing)
+for x in data['results']:
+    try:
+        for y in x['observation']['identifications'][0]:
+            print(x['observation']['identifications'][y]['previous_observation_taxon']['default_photo']['url'])
+    except Exception as error:
+        print(x['observation']['identifications'][0].keys())
+
+
 #keys(thing)

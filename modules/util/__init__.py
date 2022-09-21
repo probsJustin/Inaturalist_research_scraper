@@ -17,21 +17,21 @@ from pyinaturalist import (
     pprint,
 )
 
-def get_dict_paged_identifications(param_taxon_id, number_of_needed_pages):
+def get_dict_paged_identifications(param_taxon_id, number_of_needed_pages, per_page_param):
     pagedResponse = dict()
     for x in range(1, number_of_needed_pages):
         try:
-            pagedResponse[x] = get_identifications(taxon_id=[param_taxon_id], per_page=200, page=x)
+            pagedResponse[x] = get_identifications(taxon_id=[param_taxon_id], per_page=per_page_param, page=x)
         except Exception as error:
             print(error)
             break
     return pagedResponse
 
-def get_dict_paged_observations(param_taxon_id, number_of_needed_pages):
+def get_dict_paged_observations(param_taxon_id, number_of_needed_pages, per_page_param):
     pagedResponse = dict()
     for x in range(1, number_of_needed_pages):
         try:
-            pagedResponse[x] = get_observations(taxon_id=[param_taxon_id], per_page=200, page=x)
+            pagedResponse[x] = get_observations(taxon_id=[param_taxon_id], per_page_param=200, page=x)
         except Exception as error:
             print(error)
             break
@@ -47,6 +47,6 @@ def get_formatted_taxa(taxa_name):
 def get_taxa_by_name(taxa_name):
     return get_taxa_by_id(q=taxa_name)
 
-def write_content_to_files(responseToWrite, taxon, page):
-    with open(f'./content/requests/page_identification_{taxon}_{page}.json', "w") as outfile:
+def write_content_to_files(responseToWrite, base_name, taxon, page):
+    with open(f'./content/requests/{base_name}_{taxon}_{page}.json', "w") as outfile:
         outfile.write(json.dumps(responseToWrite, indent=4, sort_keys=True, default=str))
