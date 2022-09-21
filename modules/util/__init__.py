@@ -48,5 +48,5 @@ def get_taxa_by_name(taxa_name):
     return get_taxa_by_id(q=taxa_name)
 
 def write_content_to_files(responseToWrite, taxon, page):
-    with open(f'../../content/requests/page_identification_{taxon}_{page}.json', "w") as outfile:
-        outfile.write(json.dumps(str(responseToWrite), indent=4))
+    with open(f'./content/requests/page_identification_{taxon}_{page}.json', "w") as outfile:
+        outfile.write(json.dumps(responseToWrite, indent=4, sort_keys=True, default=str))

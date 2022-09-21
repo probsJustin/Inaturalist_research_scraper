@@ -41,11 +41,5 @@ unique = dict()
 for y in pagedResponse:
     #print(f'\nPAGE: {y}\n')
     #pprint(pagedResponse[y])
-    #util.write_content_to_files(pagedResponse[y], 52818, y)
-    for x in pagedResponse[y]['results']:
-        for j in util.get_image_url(x, "(http?s?:?\/\/[^\"']*\.(?:png|jpg|jpeg|gif|png|svg))" ):
-            unique[j] = ''
+    util.write_content_to_files(pagedResponse[y], 52818, y)
 
-print(unique.keys())
-with open(f'./content/links/link_page.json', "w") as outfile:
-    outfile.write(json.dumps(str(unique.keys()), indent=4))
