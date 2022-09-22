@@ -21,6 +21,7 @@ def url_download_image(url, contentDirectory):
     end = (time.time())
     times.append(end - start)
     print(f'Average Time in Seconds: {Average(times)}')
+    return filePath
 
 # Example:
 #with open('./content/links/link_page.json') as json_file:

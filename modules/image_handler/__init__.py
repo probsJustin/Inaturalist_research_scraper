@@ -52,9 +52,8 @@ def write_to_image(image_location, image_destination, text_to_write, size):
     d1 = ImageDraw.Draw(img)
     d1.rectangle((rectangle_size, position), fill="white")
     d1.text(text_position, text_to_write, font=ImageFont.truetype(FONT_LOCATION, text_size), fill=(0, 0, 0))
-    img.show()
     img.save(image_destination)
 
 
-image_text = built_image_text(determine_location(example_lat_long_example), example_taxon, example_name, example_date_of_image)
-write_to_image(example_imageLocation, example_imageDestinationLocation, image_text, size)
+#image_text = built_image_text(determine_location(example_lat_long_example), example_taxon, example_name, example_date_of_image)
+#write_to_image(example_imageLocation, example_imageDestinationLocation, image_text, size)
