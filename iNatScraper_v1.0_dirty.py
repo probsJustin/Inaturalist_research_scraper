@@ -68,8 +68,14 @@ def get_paged_identifications(taxon_id, items_per_page):
 
     return paged_imaged_data
 
-for x in get_paged_identifications(52818, 5):
-    print(x)
-    file_instance = download_handler.url_download_image(x.observationPhoto, './content/images')
-    image_text = image_handler.built_image_text(image_handler.determine_location(x.geoLocation), 52818, 'common yarrow', x.date_time_stamp)
-    image_handler.write_to_image(file_instance, file_instance, image_text, (100, 100))
+# for x in get_paged_identifications(52818, 5):
+#     print(x)
+#     file_instance = download_handler.url_download_image(x.observationPhoto, './content/images')
+#     image_text = image_handler.built_image_text(image_handler.determine_location(x.geoLocation), 52818, 'common yarrow', x.date_time_stamp)
+#     image_handler.write_to_image(file_instance, file_instance, image_text, (100, 100))
+
+example_lat_long_example = "53.0483695,-9.1397471667"
+example_date_of_image = f'5/15/2022'
+
+testing = image_handler.built_image_text(image_handler.determine_location(example_lat_long_example), 52818, 'common yarrow', example_date_of_image)
+print(testing)

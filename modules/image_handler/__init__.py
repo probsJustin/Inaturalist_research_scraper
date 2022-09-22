@@ -19,7 +19,11 @@ FONT_LOCATION = './content/fonts/Mogen-Bold.ttf'
 
 def determine_location(lat_long_string):
     geolocator = Nominatim(user_agent="geoapiExercises")
-    return geolocator.reverse(lat_long_string)
+    geoLocation = geolocator.reverse(lat_long_string)
+    geoLocation = str(geoLocation)
+    geoLocation = geoLocation.split(', ')
+    geoLocation = ', '.join(geoLocation[:int(len(geoLocation)/2)]) + ' \n ' + ', '.join(geoLocation[int(len(geoLocation)/2):])
+    return geoLocation
 
 
 def determine_text_size(size):

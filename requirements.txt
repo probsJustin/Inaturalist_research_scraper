@@ -6,3 +6,4 @@ pyinaturalist~=0.17.4
 rich~=12.5.1
 ipyplot~=1.1.1
 Pillow~=9.2.0
+geopy~=2.2.0
