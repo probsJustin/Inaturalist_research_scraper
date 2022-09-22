@@ -76,6 +76,8 @@ def get_paged_identifications(taxon_id, items_per_page):
 
 example_lat_long_example = "53.0483695,-9.1397471667"
 example_date_of_image = f'5/15/2022'
+example_imageLocation = './content/images/original_1.jpg'
+example_imageDestinationLocation = './content/images/original_2.jpg'
 
 testing = image_handler.built_image_text(image_handler.determine_location(example_lat_long_example), 52818, 'common yarrow', example_date_of_image)
-print(testing)
+image_handler.write_to_image(example_imageLocation, example_imageDestinationLocation, testing, (100, 100), 'show')

@@ -31,7 +31,7 @@ def determine_text_size(size):
 
 
 def determine_rectangle_size(size):
-    return (width, 250)
+    return (width, 300)
 
 
 def determine_text_position(size):
@@ -46,7 +46,7 @@ def built_image_text(location, taxon, name, date_of_image):
     return f' LOCATION: {location} \n TAXON: {taxon} \n NAME: {name} \n DATE: {date_of_image}'
 
 
-def write_to_image(image_location, image_destination, text_to_write, size):
+def write_to_image(image_location, image_destination, text_to_write, size, debug = None):
     rectangle_size = determine_rectangle_size(size)
     text_size = determine_text_size(size)
     position = determine_position(size)
@@ -56,6 +56,8 @@ def write_to_image(image_location, image_destination, text_to_write, size):
     d1 = ImageDraw.Draw(img)
     d1.rectangle((rectangle_size, position), fill="white")
     d1.text(text_position, text_to_write, font=ImageFont.truetype(FONT_LOCATION, text_size), fill=(0, 0, 0))
+    if(debug == 'show'):
+        img.show()
     img.save(image_destination)
 
 
