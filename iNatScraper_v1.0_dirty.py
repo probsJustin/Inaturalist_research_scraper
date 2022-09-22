@@ -74,10 +74,13 @@ def get_paged_identifications(taxon_id, items_per_page):
 #     image_text = image_handler.built_image_text(image_handler.determine_location(x.geoLocation), 52818, 'common yarrow', x.date_time_stamp)
 #     image_handler.write_to_image(file_instance, file_instance, image_text, (100, 100))
 
-example_lat_long_example = "53.0483695,-9.1397471667"
-example_date_of_image = f'5/15/2022'
-example_imageLocation = './content/images/original_1.jpg'
-example_imageDestinationLocation = './content/images/original_2.jpg'
+# example_lat_long_example = "53.0483695,-9.1397471667"
+# example_date_of_image = f'5/15/2022'
+# example_imageLocation = './content/images/original_1.jpg'
+# example_imageDestinationLocation = './content/images/original_2.jpg'
+#
+# testing = image_handler.built_image_text(image_handler.determine_location(example_lat_long_example), 52818, 'common yarrow', example_date_of_image)
+# image_handler.write_to_image(example_imageLocation, example_imageDestinationLocation, testing, (100, 100), 'show')
 
-testing = image_handler.built_image_text(image_handler.determine_location(example_lat_long_example), 52818, 'common yarrow', example_date_of_image)
-image_handler.write_to_image(example_imageLocation, example_imageDestinationLocation, testing, (100, 100), 'show')
+requestFile = f'./requests.txt'
+print(util.get_requests_from_entry_file(requestFile))

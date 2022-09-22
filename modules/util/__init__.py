@@ -118,3 +118,9 @@ def process_inat_result_data(data):
         except Exception as error:
             print(error)
     return return_list
+
+
+def get_requests_from_entry_file(destinationFolder):
+    with open(destinationFolder) as f:
+        lines = f.readlines()
+    return lines 
