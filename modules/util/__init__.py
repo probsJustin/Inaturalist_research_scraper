@@ -16,6 +16,8 @@ from pyinaturalist import (
     get_identifications,
     pprint,
 )
+import re
+
 
 def get_dict_paged_identifications(param_taxon_id, number_of_needed_pages, per_page_param):
     """
@@ -123,4 +125,8 @@ def process_inat_result_data(data):
 def get_requests_from_entry_file(destinationFolder):
     with open(destinationFolder) as f:
         lines = f.readlines()
-    return lines 
+    return lines
+
+def get_taxon_id_from_url(url):
+    regex_taxon_id = 'taxon_id=(\d*)'
+    return re.search(regex_taxon_id, url)

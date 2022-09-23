@@ -13,7 +13,7 @@ def url_download_image(url, contentDirectory):
     start = (time.time())
     fileName = hashlib.md5(url.encode('utf-8'))
     fileNameHash = f'inat_{fileName.hexdigest()}.jpg'
-    filePath = f'./content/images/inat_{fileName.hexdigest()}.jpg'
+    filePath = f'{contentDirectory}/inat_{fileName.hexdigest()}.jpg'
     if fileNameHash not in contentDirectory:
         response = requests.get(url, stream=True)
         with open(filePath, 'wb+') as out_file:
