@@ -19,6 +19,9 @@ from pyinaturalist import (
 import re
 
 
+def contact():
+    return f'Please reach out to the admin of this application.'
+
 def get_dict_paged_identifications(param_taxon_id, number_of_needed_pages, per_page_param):
     """
         Parameters
@@ -35,23 +38,29 @@ def get_dict_paged_identifications(param_taxon_id, number_of_needed_pages, per_p
         returns :
             list of paged responses
     """
-    pagedResponse = dict()
-    for x in range(1, number_of_needed_pages):
-        try:
-            pagedResponse[x] = get_identifications(taxon_id=[param_taxon_id], per_page=per_page_param, page=x)
-        except Exception as error:
-            print(error)
-            break
+    try:
+        pagedResponse = dict()
+        for x in range(1, number_of_needed_pages):
+            try:
+                pagedResponse[x] = get_identifications(taxon_id=[param_taxon_id], per_page=per_page_param, page=x)
+            except Exception as error:
+                print(error)
+                break
+    except Exception as error:
+        raise Exception(f'Not able to get paged response from inaturalist api: {error} \n {contact()}')
     return pagedResponse
 
 def get_dict_paged_observations(param_taxon_id, number_of_needed_pages, per_page_param):
-    pagedResponse = dict()
-    for x in range(1, number_of_needed_pages):
-        try:
-            pagedResponse[x] = get_observations(taxon_id=[param_taxon_id], per_page_param=200, page=x)
-        except Exception as error:
-            print(error)
-            break
+    try:
+        pagedResponse = dict()
+        for x in range(1, number_of_needed_pages):
+            try:
+                pagedResponse[x] = get_observations(taxon_id=[param_taxon_id], per_page_param=200, page=x)
+            except Exception as error:
+                print(error)
+                break
+    except Exception as error:
+        raise Exception(f'Not able to get paged observations from the inaturalist api: {error} \n {contact()}')
     return pagedResponse
 
 def get_image_url(param_inat_response_payload, match_string):
@@ -110,15 +119,15 @@ def process_inat_result_data(data):
         returns : list[result_return_for_image]
             a list of class objects: list[result_return_for_image()]
     """
-    return_list = list()
-    for x in data['results']:
-        try:
+    try:
+        return_list = list()
+        for x in data['results']:
             geoLocationLatLong = x['observation']['location']
             observationPhoto = x['observation']['observation_photos'][0]['photo']['url'].replace('square', 'original')
             createAtDate = x['created_at_details']['date']
             return_list.append(result_return_for_image(geoLocationLatLong, observationPhoto, createAtDate))
-        except Exception as error:
-            print(error)
+    except Exception as error:
+        raise Exception(f'Not able to process inaturalist result data: {error} \n {contact()}')
     return return_list
 
 
