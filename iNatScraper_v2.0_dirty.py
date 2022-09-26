@@ -103,3 +103,4 @@ else:
              file_instance = download_handler.url_download_image(x.observationPhoto, path)
              image_text = image_handler.built_image_text(image_handler.determine_location(x.geoLocation), unique_common_name[common_name], common_name, x.date_time_stamp)
              image_handler.write_to_image(file_instance, file_instance, image_text, (100, 100))
+

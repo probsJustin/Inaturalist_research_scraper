@@ -17,10 +17,13 @@ from pyinaturalist import (
     pprint,
 )
 import re
+import os
+
 
 
 def contact():
     return f'Please reach out to the admin of this application.'
+
 
 def get_dict_paged_identifications(param_taxon_id, number_of_needed_pages, per_page_param):
     """
@@ -122,10 +125,13 @@ def process_inat_result_data(data):
     try:
         return_list = list()
         for x in data['results']:
-            geoLocationLatLong = x['observation']['location']
-            observationPhoto = x['observation']['observation_photos'][0]['photo']['url'].replace('square', 'original')
-            createAtDate = x['created_at_details']['date']
-            return_list.append(result_return_for_image(geoLocationLatLong, observationPhoto, createAtDate))
+            try:
+                geoLocationLatLong = x['observation']['location']
+                observationPhoto = x['observation']['observation_photos'][0]['photo']['url'].replace('square', 'original')
+                createAtDate = x['created_at_details']['date']
+                return_list.append(result_return_for_image(geoLocationLatLong, observationPhoto, createAtDate))
+            except Exception as inner_error:
+                print(f'Warning: {inner_error}')
     except Exception as error:
         raise Exception(f'Not able to process inaturalist result data: {error} \n {contact()}')
     return return_list
