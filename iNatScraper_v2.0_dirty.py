@@ -96,11 +96,28 @@ else:
 
     for common_name in unique_common_name:
         for x in get_paged_identifications(unique_common_name[common_name], 5):
-             print(x)
+
              path = f'./content/images/{common_name}-{unique_common_name[common_name]}'
+
              if(not os.path.exists(path)):
                  os.makedirs(path)
-             file_instance = download_handler.url_download_image(x.observationPhoto, path)
-             image_text = image_handler.built_image_text(image_handler.determine_location(x.geoLocation), unique_common_name[common_name], common_name, x.date_time_stamp)
-             image_handler.write_to_image(file_instance, file_instance, image_text, (100, 100))
+
+             image_original_full_path = download_handler.build_full_path(
+                 x.observationPhoto,
+                 path,
+                 '.jpg',
+                 unique_common_name[common_name],
+                 '14')
+             image_text = image_handler.built_image_text(
+                 image_handler.determine_location(x.geoLocation),
+                 unique_common_name[common_name],
+                 common_name,
+                 x.date_time_stamp)
+             image_destination_full_path = image_handler.build_destination_image_file_name(image_original_full_path)
+
+             download_handler.inat_image_downloader(
+                 x.observationPhoto,
+                 image_original_full_path
+             )
+             image_handler.write_to_image_v2(image_original_full_path, image_destination_full_path, image_text)
 

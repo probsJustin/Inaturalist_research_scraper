@@ -30,8 +30,11 @@ def determine_location(lat_long_string):
 def get_file_name_without_suffix(file_name):
     return os.path.splitext(file_name)[0]
 
-def get_file_suffix(file_name)
+def get_file_name_ext(file_name):
     return os.path.splitext(file_name)[1]
+
+def get_file_basename(file_name):
+    return os.path.basename(file_name)
 
 def determine_text_size(size):
     return 40
@@ -75,14 +78,16 @@ def write_to_image(image_location, image_destination, text_to_write, size, debug
     img.save(image_destination)
 
 def build_destination_image_file_name(original_image):
-    destination_image_file_name_ext = os.path.splitext(original_image)[0]
-    return f'{original_image}_image_processed.{destination_image_file_name_ext}'
+    destination_image_file_name_ext = get_file_name_ext(original_image)
+    basename_original_image = get_file_name_without_suffix(original_image)
+    return f'{basename_original_image}_image_processed{destination_image_file_name_ext}'
 
 
 def write_to_image_v2(original_location, destination_location,  text_to_write, debug = None):
-
+    print(f'Perparing to write to image {destination_location}')
     if(does_file_exist(original_location)):
         if(does_file_exist(destination_location)):
+            print(f'Skipping image processesing for image: {destination_location} \n ...')
             return True
         else:
             rectangle_size = determine_rectangle_size(size)
