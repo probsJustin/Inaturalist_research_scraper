@@ -4,12 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 from geopy.geocoders import Nominatim
 import modules.internal_logger as logger
 
-example_imageLocation = './content/images/original_1.jpg'
-example_imageDestinationLocation = './content/images/original_2.jpg'
-example_lat_long_example = "53.0483695,-9.1397471667"
-example_name = 'common yarrow'
-example_taxon = 52818
-example_date_of_image = f'5/15/2022'
+
 
 height = 1255
 width = 2500

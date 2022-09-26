@@ -1,4 +1,3 @@
-import requests
 import shutil
 import hashlib
 import os

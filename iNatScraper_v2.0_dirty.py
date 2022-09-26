@@ -1,11 +1,3 @@
-### Imports
-import re
-import time
-import altair as alt
-import ipyplot
-import pandas as pd
-import json
-from IPython.display import Image
 from pyinaturalist import (
     Taxon,
     enable_logging,
@@ -17,14 +9,11 @@ from pyinaturalist import (
     pprint,
 )
 import os
-
-
 import logging as internal_logger
 import modules.response_handler as response_handler
 import modules.util as util
 import modules.image_handler as image_handler
 import modules.download_handler as download_handler
-
 from rich import print
 import time
 
