@@ -105,9 +105,9 @@ else:
              image_original_full_path = download_handler.build_full_path(
                  x.observationPhoto,
                  path,
-                 '.jpg',
+                 download_handler.get_url_ext(x.observationPhoto),
                  unique_common_name[common_name],
-                 '14')
+                 common_name)
              image_text = image_handler.built_image_text(
                  image_handler.determine_location(x.geoLocation),
                  unique_common_name[common_name],
