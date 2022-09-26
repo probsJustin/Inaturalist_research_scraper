@@ -90,3 +90,30 @@ def write_to_image_v2(original_location, destination_location,  text_to_write, d
     else:
         logger.log_this('image_handler', f'The input for the image writer does not appear to be available.')
         return False
+
+def write_to_bottom_of_image(original_location, destination_location,  text_to_write, debug = None):
+    logger.log_this('image_handler', f'Perparing to write to image {destination_location}')
+    if(does_file_exist(original_location)):
+        if(does_file_exist(destination_location)):
+            logger.log_this('image_handler', f'Skipping image processesing for image: {destination_location} \n ...')
+            return True
+        else:
+            logger.log_this('image_handler', f'Writing to image: {destination_location} \n ...')
+            rectangle_size = determine_rectangle_size(size)
+            text_size = determine_text_size(size)
+            position = determine_position(size)
+            text_position = determine_text_position(size)
+
+            img = Image.open(original_location)
+            bottom_band = Image.new('RGB', (img.size[0], img.size[1] + img.size[1]))
+            d1 = ImageDraw.Draw(bottom_band)
+            d1.rectangle((rectangle_size, position), fill="white")
+            d1.text(text_position, text_to_write, font=ImageFont.truetype(FONT_LOCATION, text_size), fill=(0, 0, 0))
+            if (debug == 'show'):
+                img.show()
+            img.paste(bottom_band, (0, img.size[0] - 200))
+            img.save(destination_location)
+            return True
+    else:
+        logger.log_this('image_handler', f'The input for the image writer does not appear to be available.')
+        return False

@@ -15,5 +15,5 @@ def process_log_message(log_entry):
 
 def log_this(log_level_param, log_message):
     if(log_level[log_level_param] == True or log_level['all'] == True):
-        log_string = f'[{time.time()}] \t [{log_level_param}] \t {log_message}'
+        log_string = f'[{time.strftime("%Y-%m-%d %H:%M:%S")}] \t [{log_level_param}] \t {log_message}'
         process_log_message(log_string)

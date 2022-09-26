@@ -10,6 +10,7 @@ from pyinaturalist import (
     pprint,
 )
 import re
+import modules.internal_logger as logger
 
 
 
@@ -39,7 +40,7 @@ def get_dict_paged_identifications(param_taxon_id, number_of_needed_pages, per_p
             try:
                 pagedResponse[x] = get_identifications(taxon_id=[param_taxon_id], per_page=per_page_param, page=x)
             except Exception as error:
-                print(error)
+                logger.log_this('error', error)
                 break
     except Exception as error:
         raise Exception(f'Not able to get paged response from inaturalist api: {error} \n {contact()}')
@@ -52,7 +53,7 @@ def get_dict_paged_observations(param_taxon_id, number_of_needed_pages, per_page
             try:
                 pagedResponse[x] = get_observations(taxon_id=[param_taxon_id], per_page_param=200, page=x)
             except Exception as error:
-                print(error)
+                logger.log_this('error', error)
                 break
     except Exception as error:
         raise Exception(f'Not able to get paged observations from the inaturalist api: {error} \n {contact()}')
@@ -123,7 +124,7 @@ def process_inat_result_data(data):
                 createAtDate = x['created_at_details']['date']
                 return_list.append(result_return_for_image(geoLocationLatLong, observationPhoto, createAtDate))
             except Exception as inner_error:
-                print(f'Warning: {inner_error}')
+                logger.log_this('warning', f'Warning: {inner_error}')
     except Exception as error:
         raise Exception(f'Not able to process inaturalist result data: {error} \n {contact()}')
     return return_list

@@ -6,6 +6,8 @@ def get_total_pages(response, page_size):
         number_of_pages = math.ceil(response["total_results"]/page_size)
         print(f'total_results: {total_results}')
         print(f'number_of_pages: {number_of_pages}')
+        print(f'number_of_images: {number_of_pages * 5}')
+
         return number_of_pages
     except Exception as error:
         print(error)

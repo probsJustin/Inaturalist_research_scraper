@@ -14,8 +14,10 @@ import modules.response_handler as response_handler
 import modules.util as util
 import modules.image_handler as image_handler
 import modules.download_handler as download_handler
+import modules.internal_logger as logger
 from rich import print
 import time
+
 
 ### Setup
 internal_logger.basicConfig(filename=f'./logs/inat_{time.strftime("%Y%m%d-%H%M%S")}.log', level=internal_logger.DEBUG)
@@ -66,14 +68,14 @@ unique_common_name = dict()
 
 requestFile = f'./requests.txt'
 if(not os.path.exists(requestFile)):
-    print(f'You will need to create a request file, that has the links that you want to scrape')
+    logger.log_this('error', f'You will need to create a request file, that has the links that you want to scrape')
     exit(1)
 else:
     taxon_info = ""
     for x in  util.get_requests_from_entry_file(requestFile):
         taxon_id = str(util.get_taxon_id_from_url(x)[1])
         if(not taxon_id.isnumeric()):
-            print(f'We were not able to find the taxon id in the request that you provided, recieved: {taxon_id}')
+            logger.log_this('error', f'We were not able to find the taxon id in the request that you provided, recieved: {taxon_id}')
             exit(1)
         taxon_info = get_taxa_by_id(taxon_id)
         for results in taxon_info['results']:
@@ -81,7 +83,7 @@ else:
                 try:
                     unique_common_name[photos['taxon']['preferred_common_name']] = results['id']
                 except Exception as error:
-                    print(f'Non-issue warning: {error}')
+                    logger.log_this('error', f'Non-issue warning: Likely no photo found for identification {error}')
 
     for common_name in unique_common_name:
         for x in get_paged_identifications(unique_common_name[common_name], 5):
@@ -108,5 +110,5 @@ else:
                  x.observationPhoto,
                  image_original_full_path
              )
-             image_handler.write_to_image_v2(image_original_full_path, image_destination_full_path, image_text)
+             image_handler.write_to_bottom_of_image(image_original_full_path, image_destination_full_path, image_text)
 
