@@ -63,19 +63,6 @@ def does_file_exist(file_path):
         print(f'Not able to find file: {file_path}')
         return False
 
-def write_to_image(image_location, image_destination, text_to_write, size, debug = None):
-    rectangle_size = determine_rectangle_size(size)
-    text_size = determine_text_size(size)
-    position = determine_position(size)
-    text_position = determine_text_position(size)
-
-    img = Image.open(image_location)
-    d1 = ImageDraw.Draw(img)
-    d1.rectangle((rectangle_size, position), fill="white")
-    d1.text(text_position, text_to_write, font=ImageFont.truetype(FONT_LOCATION, text_size), fill=(0, 0, 0))
-    if(debug == 'show'):
-        img.show()
-    img.save(image_destination)
 
 def build_destination_image_file_name(original_image):
     destination_image_file_name_ext = get_file_name_ext(original_image)
@@ -106,7 +93,3 @@ def write_to_image_v2(original_location, destination_location,  text_to_write, d
     else:
         print(f'The input for the image writer does not appear to be available.')
         return False
-
-
-#image_text = built_image_text(determine_location(example_lat_long_example), example_taxon, example_name, example_date_of_image)
-#write_to_image(example_imageLocation, example_imageDestinationLocation, image_text, size)
