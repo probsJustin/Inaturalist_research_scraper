@@ -75,7 +75,7 @@ else:
         if(not taxon_id.isnumeric()):
             print(f'We were not able to find the taxon id in the request that you provided, recieved: {taxon_id}')
             exit(1)
-        taxon_info = get_taxa_by_id(str(util.get_taxon_id_from_url(x)[1]))
+        taxon_info = get_taxa_by_id(taxon_id)
         for results in taxon_info['results']:
             for photos in results['taxon_photos']:
                 try:
