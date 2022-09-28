@@ -12,5 +12,5 @@ text = 'testing'
 image_original_full_path = download_handler.build_full_path(url, directory, image_extension, plant_name, plant_id)
 image_destination_full_path = image_handler.build_destination_image_file_name(image_original_full_path)
 download_handler.inat_image_downloader(url, image_original_full_path )
-image_handler.write_to_image_v2(image_original_full_path, image_destination_full_path, text)
+image_handler.write_to_bottom_of_image(image_original_full_path, image_destination_full_path, text, 'show')
 

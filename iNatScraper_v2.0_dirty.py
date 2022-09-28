@@ -15,6 +15,7 @@ import modules.util as util
 import modules.image_handler as image_handler
 import modules.download_handler as download_handler
 import modules.internal_logger as logger
+import modules.text_handler as text_handler
 from rich import print
 import time
 
@@ -104,8 +105,14 @@ else:
                  unique_common_name[common_name],
                  common_name,
                  x.date_time_stamp)
-             image_destination_full_path = image_handler.build_destination_image_file_name(image_original_full_path)
 
+             image_destination_full_path = image_handler.build_destination_image_file_name(image_original_full_path)
+             text_handler.appendToTextFile(f'./content/dataSheet', f'''{image_handler.determine_location(x.geoLocation)}////
+                 {unique_common_name[common_name]}////
+                 {common_name}//// 
+                 {x.date_time_stamp}////
+                 {image_destination_full_path}////
+                ''')
              download_handler.inat_image_downloader(
                  x.observationPhoto,
                  image_original_full_path

@@ -105,14 +105,14 @@ def write_to_bottom_of_image(original_location, destination_location,  text_to_w
             text_position = determine_text_position(size)
 
             img = Image.open(original_location)
-            bottom_band = Image.new('RGB', (img.size[0], img.size[1] + img.size[1]))
+            bottom_band = Image.new('RGB', (img.size[0], img.size[1] + 200))
+            bottom_band.paste(img, (0, 0))
             d1 = ImageDraw.Draw(bottom_band)
-            d1.rectangle((rectangle_size, position), fill="white")
-            d1.text(text_position, text_to_write, font=ImageFont.truetype(FONT_LOCATION, text_size), fill=(0, 0, 0))
+            d1.rectangle(((0, img.size[1]), (img.size[0], img.size[1] + 200)), fill="white")
+            d1.text((0, img.size[1]), text_to_write, font=ImageFont.truetype(FONT_LOCATION, text_size), fill=(0, 0, 0))
             if (debug == 'show'):
-                img.show()
-            img.paste(bottom_band, (0, img.size[0] - 200))
-            img.save(destination_location)
+                bottom_band.show()
+            bottom_band.save(destination_location)
             return True
     else:
         logger.log_this('image_handler', f'The input for the image writer does not appear to be available.')
