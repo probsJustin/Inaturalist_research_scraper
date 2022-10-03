@@ -82,7 +82,7 @@ else:
         for results in taxon_info['results']:
             for photos in results['taxon_photos']:
                 try:
-                    unique_common_name[photos['taxon']['preferred_common_name']] = results['id']
+                    unique_common_name[f'{str(photos["taxon"]["preferred_common_name"])}  {str(results["name"])}'] = results['id']
                 except Exception as error:
                     logger.log_this('error', f'Non-issue warning: Likely no photo found for identification {error}')
 
