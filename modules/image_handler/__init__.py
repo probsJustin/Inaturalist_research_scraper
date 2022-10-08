@@ -13,7 +13,8 @@ size = dict()
 size['height'] = 1255
 size['width'] = 2500
 
-FONT_LOCATION = './content/fonts/Mogen-Bold.ttf'
+#FONT_LOCATION = './content/fonts/Mogen-Bold.ttf'
+FONT_LOCATION = './content/fonts/PocketMonk-15ze.ttf'
 
 def determine_location(lat_long_string):
     geolocator = Nominatim(user_agent="geoapiExercises")
