@@ -1,8 +1,11 @@
 import os
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageFile
 from geopy.geocoders import Nominatim
 import modules.internal_logger as logger
+import time
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 
@@ -17,11 +20,22 @@ size['width'] = 2500
 FONT_LOCATION = './content/fonts/PocketMonk-15ze.ttf'
 
 def determine_location(lat_long_string):
-    geolocator = Nominatim(user_agent="geoapiExercises")
-    geoLocation = geolocator.reverse(lat_long_string)
-    geoLocation = str(geoLocation)
-    geoLocation = geoLocation.split(', ')
-    geoLocation = ', '.join(geoLocation[:int(len(geoLocation)/2)]) + ' \n ' + ', '.join(geoLocation[int(len(geoLocation)/2):])
+    try:
+        geolocator = Nominatim(user_agent="geoapiExercises")
+        geoLocation = geolocator.reverse(lat_long_string)
+        geoLocation = str(geoLocation)
+        geoLocation = geoLocation.split(', ')
+        geoLocation = ', '.join(geoLocation[:int(len(geoLocation)/2)]) + ' \n ' + ', '.join(geoLocation[int(len(geoLocation)/2):])
+    except Exception as error:
+        logger.log_this('image_handler', f'Unable to contact geolocation library, going to retry in 3 seconds..... ')
+        time.sleep(3)
+        geolocator = Nominatim(user_agent="geoapiExercises")
+        geoLocation = geolocator.reverse(lat_long_string)
+        geoLocation = str(geoLocation)
+        geoLocation = geoLocation.split(', ')
+        geoLocation = ', '.join(geoLocation[:int(len(geoLocation)/2)]) + ' \n ' + ', '.join(geoLocation[int(len(geoLocation)/2):])
+        return geoLocation
+
     return geoLocation
 
 def get_file_name_without_suffix(file_name):

@@ -1,0 +1,9 @@
+{
+    "region":"us-east-2",
+    "accountNumber": "",
+    "profile": "default",
+    "userName": "",
+    "applicationName": "iNaturalistScrapperCluster",
+    "image": "ami-089a545a9ed9893b6",
+    "instanceType":"t2.micro"
+}

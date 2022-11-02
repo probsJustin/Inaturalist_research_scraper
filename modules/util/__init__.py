@@ -11,7 +11,8 @@ from pyinaturalist import (
 )
 import re
 import modules.internal_logger as logger
-
+import time
+import os
 
 
 def contact():
@@ -35,15 +36,48 @@ def get_dict_paged_identifications(param_taxon_id, number_of_needed_pages, per_p
             list of paged responses
     """
     try:
+        fileName = ""
         pagedResponse = dict()
         for x in range(1, number_of_needed_pages):
-            try:
-                pagedResponse[x] = get_identifications(taxon_id=[param_taxon_id], per_page=per_page_param, page=x)
-            except Exception as error:
-                logger.log_this('error', error)
-                break
+            fileName = f'{param_taxon_id}_{per_page_param}_{number_of_needed_pages}_{x}.json'
+            filePath = f'./content/requests/{fileName}'
+            if(os.path.isfile(filePath)):
+                logger.log_this('info', f'Json file exists, skipping creating a request.....{fileName}')
+                with open(filePath, 'r') as f:
+                    pagedResponse[x] = json.load(f)
+                continue
+            else:
+                try:
+                    pagedResponse[x] = get_identifications(taxon_id=[param_taxon_id], per_page=per_page_param, page=x)
+                    logger.log_this('info', f'Getting Page {x}......')
+                except Exception as error:
+                    try:
+                        logger.log_this('error', f'{error}')
+                        logger.log_this('error', f'Retrying.....')
+                        if("403 Client Error" in str(error)):
+                            break
+                        time.sleep(2)
+                        pagedResponse[x] = get_identifications(taxon_id=[param_taxon_id], per_page=per_page_param, page=x)
+                        logger.log_this('info', f'Getting Page {x}......')
+                    except Exception as error:
+                        logger.log_this('error', f'{error}')
+                        logger.log_this('error', f'Retrying.....')
+                        if ("403 Client Error" in str(error)):
+                            break
+                        time.sleep(2)
+                        pagedResponse[x] = get_identifications(taxon_id=[param_taxon_id], per_page=per_page_param,
+                                                               page=x)
+                        logger.log_this('info', f'Getting Page {x}......')
+
+                logger.log_this('info', f'Json file did not exist, ran request and saving request.....{fileName}')
+                with open(filePath, "w") as outfile:
+                    outfile.write(json.dumps(pagedResponse[x], indent=4, sort_keys=True, default=str))
+
     except Exception as error:
-        raise Exception(f'Not able to get paged response from inaturalist api: {error} \n {contact()}')
+        if ("403 Client Error" in str(error)):
+            return pagedResponse
+        else:
+            raise Exception(f'Not able to get paged response from inaturalist api: {error} \n {contact()}')
     return pagedResponse
 
 def get_dict_paged_observations(param_taxon_id, number_of_needed_pages, per_page_param):
@@ -124,7 +158,7 @@ def process_inat_result_data(data):
                 createAtDate = x['created_at_details']['date']
                 return_list.append(result_return_for_image(geoLocationLatLong, observationPhoto, createAtDate))
             except Exception as inner_error:
-                logger.log_this('warning', f'Warning: {inner_error}')
+                logger.log_this('warning', f'Warning: GeoLocation Error (if this is a list error, it is likely fine) {inner_error}')
     except Exception as error:
         raise Exception(f'Not able to process inaturalist result data: {error} \n {contact()}')
     return return_list

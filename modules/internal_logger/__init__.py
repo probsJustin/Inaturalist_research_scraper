@@ -2,7 +2,7 @@ import time
 
 log_level = dict()
 log_level['all'] = False
-
+log_level['info'] = True
 log_level['error'] = True
 log_level['debug'] = True
 log_level['warning'] = True
