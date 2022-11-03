@@ -27,3 +27,8 @@ services:
       - 8081:80
 volumes:
   dbdata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /db_database

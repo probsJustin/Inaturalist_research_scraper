@@ -21,7 +21,17 @@ resource "aws_instance" "test_aws_instance" {
   vpc_security_group_ids = [aws_security_group.ssh_security_group.id, aws_security_group.database_security_group.id, aws_security_group.phpmyadmin_security_group.id, aws_security_group.phpmyadmin_database_security_group.id]
   user_data = <<-EOF
                 #!/bin/bash
-                yum install -y mysql56-server
+                sudo su
+                amazon-linux-extras install docker -y
+                sleep 5
+                service docker start
+                yum install -y git
+                curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+                chmod +x /usr/local/bin/docker-compose
+                ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+                curl -o /docker-compose.yaml https://raw.githubusercontent.com/probsJustin/Inaturalist_research_scraper/main/docker-compose/phpmyadmin/docker-compose.yaml
+                cd /
+                docker-compose up -d > docker-compose-log.txt
               EOF
   tags = {
     Owner = var.userName,
