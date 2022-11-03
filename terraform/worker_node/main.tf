@@ -17,6 +17,8 @@ provider "aws" {
 resource "aws_instance" "test_aws_instance" {
   ami           = var.image
   instance_type = var.instanceType
+  key_name      = var.key_pair_name
+
   user_data = <<-EOF
                 #!/bin/bash
                 export worker_node_id = var.worker_node_id

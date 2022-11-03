@@ -1,6 +1,18 @@
 import json
 from subprocess import Popen, check_output
 
+def get_aws_instance_resources_from_tfstate_file(tf_state):
+    tf_state = json.loads(tf_state.decode('utf8'))
+    resource_list = list()
+    for resource in tf_state["values"]["root_module"]["resources"]:
+        if(resource['type'] == 'aws_instance'):
+            resource_list.append(resource)
+    return resource_list
+
+def get_tf_state_file(terraform_directory, file_name):
+    terraform_show_command = f'''terraform -chdir={terraform_directory} show -json {file_name}'''
+    print(f'Running show command for file: {file_name} ....')
+    return check_output(terraform_show_command)
 
 
 def create_database():

@@ -17,3 +17,7 @@ variable "image" {
 variable "instanceType" {
   default = "t2.micro"
 }
+
+variable "key_pair_name" {
+  default = "Deployment-Key-Pair"
+}

@@ -21,3 +21,7 @@ variable "instanceType" {
 variable "worker_node_id"{
   default = 0
 }
+
+variable "key_pair_name" {
+  default = "Deployment-Key-Pair"
+}

@@ -17,6 +17,8 @@ provider "aws" {
 resource "aws_instance" "test_aws_instance" {
   ami           = var.image
   instance_type = var.instanceType
+  key_name      = var.key_pair_name
+
   tags = {
     Owner = var.userName,
     Name = var.applicationName
