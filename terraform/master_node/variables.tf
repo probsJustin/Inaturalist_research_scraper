@@ -21,3 +21,7 @@ variable "instanceType" {
 variable "key_pair_name" {
   default = "Deployment-Key-Pair"
 }
+
+variable "database_ip_address"{
+  default = "192.168.0.1"
+}

@@ -36,16 +36,16 @@ def create_database():
     return init, plan, apply
 
 
-def create_master_node():
+def create_master_node(database_ip_address):
     print(f'Attempting to creat database instance.....')
     terraform_directory =f'./terraform/master_node'
     with open('./terraform/configuration.json') as json_file:
         configuration = json.load(json_file)
 
 
-    terraform_command_init = f'''terraform -chdir={terraform_directory} init '''
-    terraform_command_plan = f'''terraform -chdir={terraform_directory} plan '''
-    terraform_command_apply = f'''terraform -chdir={terraform_directory} apply -auto-approve'''
+    terraform_command_init = f'''terraform -chdir={terraform_directory} init -var=database_ip_address:{database_ip_address}'''
+    terraform_command_plan = f'''terraform -chdir={terraform_directory} plan -var=database_ip_address:{database_ip_address}'''
+    terraform_command_apply = f'''terraform -chdir={terraform_directory} apply -var=database_ip_address:{database_ip_address} -auto-approve'''
 
     print(f'Terraform init...')
     init = check_output(terraform_command_init)
@@ -57,15 +57,15 @@ def create_master_node():
     return init, plan, apply
 
 
-def create_worker_node(worker_node_id):
+def create_worker_node(worker_node_id, database_ip_address):
     print(f'Attempting to creat database instance.....')
     terraform_directory =f'./terraform/worker_node'
     with open('./terraform/configuration.json') as json_file:
         configuration = json.load(json_file)
 
-    terraform_command_init = f'''terraform -chdir={terraform_directory} init -var=worker_node_id:{worker_node_id}'''
-    terraform_command_plan = f'''terraform -chdir={terraform_directory} plan -var=worker_node_id:{worker_node_id}'''
-    terraform_command_apply = f'''terraform -chdir={terraform_directory} apply -var=worker_node_id:{worker_node_id} -auto-approve'''
+    terraform_command_init = f'''terraform -chdir={terraform_directory} init -var=worker_node_id:{worker_node_id} -var=database_ip_address:{database_ip_address}'''
+    terraform_command_plan = f'''terraform -chdir={terraform_directory} plan -var=worker_node_id:{worker_node_id} -var=database_ip_address:{database_ip_address}'''
+    terraform_command_apply = f'''terraform -chdir={terraform_directory} apply -var=worker_node_id:{worker_node_id} -var=database_ip_address:{database_ip_address} -auto-approve'''
 
     print(f'Terraform init...')
     init = check_output(terraform_command_init)

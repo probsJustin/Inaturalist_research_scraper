@@ -22,6 +22,10 @@ variable "worker_node_id"{
   default = 0
 }
 
+variable "database_ip_address"{
+  default = "192.168.0.1"
+}
+
 variable "key_pair_name" {
   default = "Deployment-Key-Pair"
 }

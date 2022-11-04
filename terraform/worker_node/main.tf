@@ -22,6 +22,7 @@ resource "aws_instance" "test_aws_instance" {
   user_data = <<-EOF
                 #!/bin/bash
                 export worker_node_id = var.worker_node_id
+                export database_ip_address = var.database_ip_address
               EOF
   tags = {
     Owner = var.userName,
