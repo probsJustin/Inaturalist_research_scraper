@@ -5,11 +5,12 @@ import requests
 
 def execute_sql(sql, connection):
     cnxn = pyodbc.connect(f'''
-    DRIVER={{SQL Server}};
+    DRIVER={{MySQL ODBC 8.0 ANSI Driver}};
     SERVER={connection['database_address']};
-    DATABASE={connection['database_name']}
+    DATABASE={connection['database_name']};
     UID={connection['database_user']};
     PWD={connection['database_pass']};
+    OPTION=3;
     ''')
     cursor = cnxn.cursor()
     cursor.execute(sql)

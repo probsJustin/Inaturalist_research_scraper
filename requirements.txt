@@ -8,3 +8,5 @@ ipyplot~=1.1.1
 Pillow~=9.2.0
 geopy~=2.2.0
 traitlets~=5.4.0
+paramiko~=2.11.0
+pyodbc~=4.0.34

@@ -1,1 +1,1 @@
-{"path_to_ssh_ppk": "/ppk/Deployment-Key-Pair-OpenSSH", "db_table": "requests", "number_of_worker_nodes": "4", "db_address": "3.136.156.182", "db_name": "app_db", "db_user": "root", "db_pass": "my_secret_password"}
+{"path_to_ssh_ppk": "/ppk/Deployment-Key-Pair-OpenSSH", "db_table": "requests", "number_of_worker_nodes": "4", "db_address": "3.144.167.145", "db_name": "app_db", "db_user": "db_user", "db_pass": "db_user_pass"}
