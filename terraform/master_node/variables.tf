@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "applicationName" {
-  default = "databaseApplication"
+  default = "masterNodeApplication"
 }
 
 variable "userName" {
