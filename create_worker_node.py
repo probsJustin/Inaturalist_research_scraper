@@ -24,6 +24,6 @@ for resource in resources:
         my_connection_instance['hostname'] = f'{resource["values"]["public_ip"]}'
         my_connection_instance['username'] = "ec2-user"
         my_connection_instance['password'] = ""
-        my_connection_instance['ppk_file_path'] = "/ppk/Deployment-Key-Pair-OpenSSH"
+        my_connection_instance['ppk_file_path'] = config.get_configuration('path_to_ssh_ppk')
 
 

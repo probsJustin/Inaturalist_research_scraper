@@ -1,8 +1,11 @@
 import codecs
 import modules.terraform_handler as tf_handler
+import modules.configuration_handler as config
 import paramiko
 import json
 import time
+
+
 def run_ssh(connection, command):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -12,10 +15,12 @@ def run_ssh(connection, command):
     ssh.close()
     return response
 
-print(tf_handler.create_database())
+
+print(tf_handler.create_worker_node(1, 10))
+
 time.sleep(5)
 resource = dict()
-tf_state = tf_handler.get_tf_state_file(f'./terraform/database', f'terraform_state.tfstate')
+tf_state = tf_handler.get_tf_state_file(f'./terraform/master_node', f'terraform_state.tfstate')
 resources = tf_handler.get_aws_instance_resources_from_tfstate_file(tf_state)
 for resource in resources:
     if(resource['values']['tags']['Name'] == "databaseApplication"):
