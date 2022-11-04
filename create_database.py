@@ -29,5 +29,6 @@ for resource in resources:
         my_connection_instance['username'] = "ec2-user"
         my_connection_instance['password'] = ""
         my_connection_instance['ppk_file_path'] = config.get_configuration('path_to_ssh_ppk')
+        config.set_configuration("db_address", resource["values"]["public_ip"])
 
 
