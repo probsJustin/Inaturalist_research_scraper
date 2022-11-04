@@ -1,4 +1,5 @@
 import modules.terraform_handler as tf_handler
+import modules.configuration_handler as config
 import time
 
 
@@ -10,6 +11,3 @@ resources = tf_handler.get_aws_instance_resources_from_tfstate_file(tf_state)
 for resource in resources:
     if(resource['values']['tags']['Name'] == "databaseApplication"):
         print(resource["values"]["public_ip"])
-
-
-
