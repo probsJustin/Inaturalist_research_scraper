@@ -11,8 +11,7 @@ services:
       MYSQL_PASSWORD: db_user_pass
     ports:
       - "6033:3306"
-    volumes:
-      - dbdata:/var/lib/mysql
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: pma
@@ -25,10 +24,3 @@ services:
     restart: always
     ports:
       - 8081:80
-volumes:
-  dbdata:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /db_database

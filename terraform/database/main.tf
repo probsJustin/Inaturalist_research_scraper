@@ -31,7 +31,8 @@ resource "aws_instance" "test_aws_instance" {
                 ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
                 curl -o /docker-compose.yaml https://raw.githubusercontent.com/probsJustin/Inaturalist_research_scraper/main/docker-compose/phpmyadmin/docker-compose.yaml
                 cd /
-                docker-compose up -d > docker-compose-log.txt
+                docker-compose up -d 2>&1 | tee -a logfile.txt
+                sleep 30
               EOF
   tags = {
     Owner = var.userName,
