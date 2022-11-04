@@ -1,6 +1,5 @@
 import modules.terraform_handler as tf_handler
 import modules.configuration_handler as config
-import json
 import time
 
 
