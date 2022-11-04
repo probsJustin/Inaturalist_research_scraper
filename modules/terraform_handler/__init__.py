@@ -1,6 +1,7 @@
 import json
 from subprocess import Popen, check_output
 
+
 def get_aws_instance_resources_from_tfstate_file(tf_state):
     tf_state = json.loads(tf_state.decode('utf8'))
     resource_list = list()
@@ -8,6 +9,7 @@ def get_aws_instance_resources_from_tfstate_file(tf_state):
         if(resource['type'] == 'aws_instance'):
             resource_list.append(resource)
     return resource_list
+
 
 def get_tf_state_file(terraform_directory, file_name):
     terraform_show_command = f'''terraform -chdir={terraform_directory} show -json {file_name}'''
@@ -20,7 +22,6 @@ def create_database():
     terraform_directory =f'./terraform/database'
     with open('./terraform/configuration.json') as json_file:
         configuration = json.load(json_file)
-
 
     terraform_command_init = f'''terraform -chdir={terraform_directory} init '''
     terraform_command_plan = f'''terraform -chdir={terraform_directory} plan '''
@@ -41,7 +42,6 @@ def create_master_node(database_ip_address):
     terraform_directory =f'./terraform/master_node'
     with open('./terraform/configuration.json') as json_file:
         configuration = json.load(json_file)
-
 
     terraform_command_init = f'''terraform -chdir={terraform_directory} init -var=database_ip_address:{database_ip_address}'''
     terraform_command_plan = f'''terraform -chdir={terraform_directory} plan -var=database_ip_address:{database_ip_address}'''
