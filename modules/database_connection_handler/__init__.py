@@ -4,9 +4,15 @@ import requests
 
 
 def execute_sql(sql, connection):
-    cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER='+connection['database_address']+';DATABASE='+connection['database_name']+';UID='+connection['database_user']+';PWD='+ connection['database_pass'])
+    cnxn = pyodbc.connect(f'''
+    DRIVER={{SQL Server}};
+    SERVER={connection['database_address']};
+    DATABASE={connection['database_name']}
+    UID={connection['database_user']};
+    PWD={connection['database_pass']};
+    ''')
     cursor = cnxn.cursor()
-    cursor.execute({sql})
+    cursor.execute(sql)
     sql_result = cursor.fetchall()
     cnxn.close()
     return sql_result
