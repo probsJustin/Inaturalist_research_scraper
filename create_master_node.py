@@ -17,7 +17,6 @@ def run_ssh(connection, command):
 
 
 print(tf_handler.create_worker_node(1, 10))
-
 time.sleep(5)
 resource = dict()
 tf_state = tf_handler.get_tf_state_file(f'./terraform/master_node', f'terraform_state.tfstate')

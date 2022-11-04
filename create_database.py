@@ -1,8 +1,11 @@
 import codecs
 import modules.terraform_handler as tf_handler
+import modules.configuration_handler as config
 import paramiko
 import json
 import time
+
+
 def run_ssh(connection, command):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -11,6 +14,7 @@ def run_ssh(connection, command):
     response = stdout.readlines()
     ssh.close()
     return response
+
 
 print(tf_handler.create_database())
 time.sleep(5)
