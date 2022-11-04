@@ -43,9 +43,9 @@ def create_master_node(database_ip_address):
     with open('./terraform/configuration.json') as json_file:
         configuration = json.load(json_file)
 
-    terraform_command_init = f'''terraform -chdir={terraform_directory} init -var=database_ip_address:{database_ip_address}'''
-    terraform_command_plan = f'''terraform -chdir={terraform_directory} plan -var=database_ip_address:{database_ip_address}'''
-    terraform_command_apply = f'''terraform -chdir={terraform_directory} apply -var=database_ip_address:{database_ip_address} -auto-approve'''
+    terraform_command_init = f'''terraform -chdir={terraform_directory} init -var=database_ip_address={database_ip_address}'''
+    terraform_command_plan = f'''terraform -chdir={terraform_directory} plan -var=database_ip_address={database_ip_address}'''
+    terraform_command_apply = f'''terraform -chdir={terraform_directory} apply -var=database_ip_address={database_ip_address} -auto-approve'''
 
     print(f'Terraform init...')
     init = check_output(terraform_command_init)
@@ -63,9 +63,9 @@ def create_worker_node(worker_node_id, database_ip_address):
     with open('./terraform/configuration.json') as json_file:
         configuration = json.load(json_file)
 
-    terraform_command_init = f'''terraform -chdir={terraform_directory} init -var=worker_node_id:{worker_node_id} -var=database_ip_address:{database_ip_address}'''
-    terraform_command_plan = f'''terraform -chdir={terraform_directory} plan -var=worker_node_id:{worker_node_id} -var=database_ip_address:{database_ip_address}'''
-    terraform_command_apply = f'''terraform -chdir={terraform_directory} apply -var=worker_node_id:{worker_node_id} -var=database_ip_address:{database_ip_address} -auto-approve'''
+    terraform_command_init = f'''terraform -chdir={terraform_directory} init -var=worker_node_id={worker_node_id} -var=database_ip_address={database_ip_address}'''
+    terraform_command_plan = f'''terraform -chdir={terraform_directory} plan -var=worker_node_id={worker_node_id} -var=database_ip_address={database_ip_address}'''
+    terraform_command_apply = f'''terraform -chdir={terraform_directory} apply -var=worker_node_id={worker_node_id} -var=database_ip_address={database_ip_address} -auto-approve'''
 
     print(f'Terraform init...')
     init = check_output(terraform_command_init)

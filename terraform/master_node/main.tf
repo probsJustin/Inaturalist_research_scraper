@@ -20,7 +20,8 @@ resource "aws_instance" "test_aws_instance" {
   key_name      = var.key_pair_name
   user_data = <<-EOF
                 #!/bin/bash
-                export database_ip_address = var.database_ip_address
+                echo database_ip_address="${var.database_ip_address}" >> /etc/environment
+                echo inat_operation="${var.operation}" >> /etc/environment
               EOF
   tags = {
     Owner = var.userName,

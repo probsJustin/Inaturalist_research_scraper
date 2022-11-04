@@ -25,3 +25,7 @@ variable "key_pair_name" {
 variable "database_ip_address"{
   default = "192.168.0.1"
 }
+
+variable "operation"{
+  default = "master"
+}

@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "applicationName" {
-  default = "databaseApplication"
+  default = "workerNodeApplication"
 }
 
 variable "userName" {
@@ -28,4 +28,8 @@ variable "database_ip_address"{
 
 variable "key_pair_name" {
   default = "Deployment-Key-Pair"
+}
+
+variable "operation"{
+  default = "worker"
 }
