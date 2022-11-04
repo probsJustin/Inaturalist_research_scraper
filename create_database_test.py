@@ -27,30 +27,3 @@ for resource in resources:
         my_connection_instance['ppk_file_path'] = "/ppk/Deployment-Key-Pair-OpenSSH"
 
 
-        # time.sleep(1)
-        # print(run_ssh(my_connection_instance, 'sudo su'))
-        # time.sleep(1)
-        # print(run_ssh(my_connection_instance, 'sudo amazon-linux-extras install docker -y'))
-        # time.sleep(1)
-        # print(run_ssh(my_connection_instance, 'sudo service docker start'))
-        # time.sleep(1)
-        # print(run_ssh(my_connection_instance, 'sudo yum install -y git'))
-        # time.sleep(1)
-        # print(run_ssh(my_connection_instance, 'sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose'))
-        # time.sleep(1)
-        # print(run_ssh(my_connection_instance, 'sudo chmod +x /usr/local/bin/docker-compose'))
-        # time.sleep(1)
-        # print(run_ssh(my_connection_instance, 'ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose'))
-        # time.sleep(1)
-        # print(f'You will have to connect to this instance and run "sudo mysql_secure_installation"')
-        '''
-        sudo amazon-linux-extras install docker -y
-        sudo service docker start
-        sudo yum install -y git
-        sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
-        ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-        curl -o ./docker-compose.yaml https://github.com/probsJustin/Inaturalist_research_scraper/blob/main/docker-compose/phpmyadmin/docker-compose.yaml
-        docker-compose up -d
-        '''
-
