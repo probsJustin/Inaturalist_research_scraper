@@ -40,3 +40,13 @@ def mark_request_complete(request_url):
     '''
     response = db.execute_sql(sql, connection)
     return response
+
+
+def get_next_request(worker_node_id):
+    connection = db.create_connection(config.get_configuration('db_address'), config.get_configuration('db_name'),
+                                      config.get_configuration('db_user'), config.get_configuration('db_pass'))
+    sql = f'''
+    SELECT * FROM requests WHERE isDone=false AND workerNodeId={worker_node_id};
+    '''
+    response = db.execute_sql(sql, connection)
+    return response
